@@ -3,8 +3,8 @@ import { COLOR_CLASS } from "@/lib/cosmos/types";
 
 const W = 180, H = 120;
 
-export function Minimap({ items, view, size, onCenter }: {
-  items: CanvasItem[]; view: View; size: { w: number; h: number }; onCenter: (x: number, y: number) => void;
+export function Minimap({ items, view, size, onCenter, dimmed }: {
+  items: CanvasItem[]; view: View; size: { w: number; h: number }; onCenter: (x: number, y: number) => void; dimmed: boolean;
 }) {
   const vp = { x: -view.x / view.zoom, y: -view.y / view.zoom, w: size.w / view.zoom, h: size.h / view.zoom };
   let minX = vp.x, minY = vp.y, maxX = vp.x + vp.w, maxY = vp.y + vp.h;
@@ -26,7 +26,7 @@ export function Minimap({ items, view, size, onCenter }: {
 
   return (
     <div
-      className="panel absolute bottom-4 right-4 z-[100000] hidden overflow-hidden md:block"
+      className={`panel chrome absolute bottom-4 right-4 z-[100000] hidden overflow-hidden md:block${dimmed ? " chrome-dim" : ""}`}
       style={{ width: W, height: H }}
       onPointerDown={onClick}
       aria-label="Minimap"
