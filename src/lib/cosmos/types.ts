@@ -1,0 +1,61 @@
+// Core data model. New item kinds (image, event, vision) can be added to ItemType later.
+export type ItemType = "note" | "idea" | "goal" | "checklist";
+export type NoteColor = "yellow" | "lavender" | "blue" | "mint" | "pink";
+export type NoteFont = "sans" | "hand" | "marker" | "serif";
+
+export interface CheckItem {
+  id: string;
+  text: string;
+  done: boolean;
+}
+
+export interface CanvasItem {
+  id: string;
+  type: ItemType;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  z: number;
+  color: NoteColor;
+  font: NoteFont;
+  text: string;
+  checklist?: CheckItem[];
+}
+
+export interface View {
+  x: number;
+  y: number;
+  zoom: number;
+}
+
+export interface Settings {
+  showGrid: boolean;
+  showMinimap: boolean;
+}
+
+export const NOTE_COLORS: NoteColor[] = ["yellow", "lavender", "blue", "mint", "pink"];
+
+export const COLOR_CLASS: Record<NoteColor, string> = {
+  yellow: "bg-note-yellow",
+  lavender: "bg-note-lavender",
+  blue: "bg-note-blue",
+  mint: "bg-note-mint",
+  pink: "bg-note-pink",
+};
+
+export const FONTS: { id: NoteFont; label: string; className: string }[] = [
+  { id: "sans", label: "Clean", className: "font-sans" },
+  { id: "hand", label: "Handwritten", className: "font-hand" },
+  { id: "marker", label: "Marker", className: "font-marker" },
+  { id: "serif", label: "Serif", className: "font-display" },
+];
+
+export const TYPE_DEFAULTS: Record<ItemType, { color: NoteColor; text: string; w: number; h: number }> = {
+  note: { color: "yellow", text: "", w: 220, h: 200 },
+  idea: { color: "lavender", text: "", w: 220, h: 180 },
+  goal: { color: "mint", text: "", w: 240, h: 170 },
+  checklist: { color: "blue", text: "To do", w: 250, h: 240 },
+};
+
+export const uid = () => Math.random().toString(36).slice(2, 10);
