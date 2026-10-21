@@ -42,6 +42,7 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
     if (e.button !== 0 && e.button !== 1) return;
     setSelected(null);
     (document.activeElement as HTMLElement | null)?.blur?.();
+    e.preventDefault();
     const ox = view.x, oy = view.y;
     containerRef.current?.classList.add("is-panning");
     trackDrag(

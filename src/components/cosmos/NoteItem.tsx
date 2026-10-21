@@ -33,6 +33,7 @@ function NoteItemImpl({ item, zoom, selected, onSelect, store }: Props) {
     onSelect(item.id);
     store.bringToFront(item.id);
     if ((e.target as HTMLElement).closest("textarea,input,button,[data-nodrag]")) return;
+    e.preventDefault();
     const ox = item.x, oy = item.y;
     let started = false;
     trackDrag(e, (dx, dy) => {

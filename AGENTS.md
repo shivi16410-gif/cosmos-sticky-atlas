@@ -8,3 +8,4 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+- COSMOS board state lives in src/lib/cosmos/useCosmosStore.ts (localStorage adapter + snapshot undo history); swap the storage layer there for cloud sync so components stay unchanged.
