@@ -20,7 +20,7 @@ export interface CanvasItem {
   color: NoteColor;
   font: NoteFont;
   text: string;
-  checklist?: CheckItem[];
+  checklist?: CheckItem[] | undefined;
 }
 
 export interface View {
