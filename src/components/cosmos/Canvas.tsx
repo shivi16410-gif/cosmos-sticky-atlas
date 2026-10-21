@@ -6,6 +6,8 @@ import { cn } from "@/lib/utils";
 
 export const MIN_ZOOM = 0.2;
 export const MAX_ZOOM = 3;
+export const ZOOM_STEP = 1.35; // zoom buttons
+export const WHEEL_ZOOM_INTENSITY = 0.004; // wheel/pinch sensitivity
 export const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
 interface Props {
