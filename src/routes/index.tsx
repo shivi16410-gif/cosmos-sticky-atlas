@@ -4,6 +4,7 @@ import { Canvas, MAX_ZOOM, MIN_ZOOM, clamp } from "@/components/cosmos/Canvas";
 import { TopBar, Toolbar, ZoomControls } from "@/components/cosmos/Chrome";
 import { Minimap } from "@/components/cosmos/Minimap";
 import { useCosmosStore } from "@/lib/cosmos/useCosmosStore";
+import { useChromeVisibility } from "@/lib/cosmos/useChromeVisibility";
 import { useTheme } from "@/lib/cosmos/useTheme";
 import type { ItemType } from "@/lib/cosmos/types";
 
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/")({
 function CosmosApp() {
   const store = useCosmosStore();
   const { theme, toggle } = useTheme();
+  const { dimmed, focusMode, toggleFocusMode } = useChromeVisibility();
   const [selected, setSelected] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 1280, h: 800 });
@@ -83,12 +85,16 @@ function CosmosApp() {
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-background text-foreground">
       <Canvas store={store} selected={selected} setSelected={setSelected} containerRef={containerRef} />
-      <TopBar store={store} theme={theme} onToggleTheme={toggle} />
-      <Toolbar onCreate={create} />
-      <ZoomControls zoom={view.zoom} onZoom={zoomBy} onFit={fit} />
-      {store.settings.showMinimap && (
-        <Minimap items={items} view={view} size={size}
-          onCenter={(x, y) => setView((v) => ({ ...v, x: size.w / 2 - x * v.zoom, y: size.h / 2 - y * v.zoom }))} />
+      <TopBar store={store} theme={theme} onToggleTheme={toggle} dimmed={dimmed} focusMode={focusMode} onToggleFocusMode={toggleFocusMode} />
+      {!focusMode && (
+        <>
+          <Toolbar onCreate={create} dimmed={dimmed} />
+          <ZoomControls zoom={view.zoom} onZoom={zoomBy} onFit={fit} dimmed={dimmed} />
+          {store.settings.showMinimap && (
+            <Minimap items={items} view={view} size={size} dimmed={dimmed}
+              onCenter={(x, y) => setView((v) => ({ ...v, x: size.w / 2 - x * v.zoom, y: size.h / 2 - y * v.zoom }))} />
+          )}
+        </>
       )}
       {store.loaded && items.length === 0 && (
         <p className="pointer-events-none absolute inset-0 flex items-center justify-center font-hand text-2xl text-muted-foreground">

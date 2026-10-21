@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  Check, Download, Lightbulb, ListChecks, Loader2, Maximize, Minus, Moon, Plus, Redo2,
+  Check, Download, Eye, EyeOff, Lightbulb, ListChecks, Loader2, Maximize, Minus, Moon, Plus, Redo2,
   Settings as SettingsIcon, StickyNote, Sun, Target, Trash2, Undo2,
 } from "lucide-react";
 import type { ItemType } from "@/lib/cosmos/types";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
 import { cn } from "@/lib/utils";
 
-export function TopBar({ store, theme, onToggleTheme }: { store: CosmosStore; theme: string; onToggleTheme: () => void }) {
+export function TopBar({ store, theme, onToggleTheme, dimmed, focusMode, onToggleFocusMode }: {
+  store: CosmosStore; theme: string; onToggleTheme: () => void;
+  dimmed: boolean; focusMode: boolean; onToggleFocusMode: () => void;
+}) {
   return (
-    <header className="panel absolute inset-x-3 top-3 z-[100000] flex h-14 items-center justify-between px-4">
+    <header className={cn("panel chrome absolute inset-x-3 top-3 z-[100000] flex h-14 items-center justify-between px-4", dimmed && "chrome-dim")}>
       <div className="flex items-center gap-2.5">
         <span className="logo-mark" aria-hidden />
         <span className="font-display text-xl tracking-[0.18em]">COSMOS</span>
@@ -22,6 +25,9 @@ export function TopBar({ store, theme, onToggleTheme }: { store: CosmosStore; th
         <IconBtn label="Undo (Ctrl+Z)" onClick={store.undo} disabled={!store.canUndo}><Undo2 className="size-4" /></IconBtn>
         <IconBtn label="Redo (Ctrl+Shift+Z)" onClick={store.redo} disabled={!store.canRedo}><Redo2 className="size-4" /></IconBtn>
         <span className="mx-1 h-6 w-px bg-border" />
+        <IconBtn label={focusMode ? "Exit focus mode (show controls)" : "Focus mode (hide controls)"} onClick={onToggleFocusMode} active={focusMode}>
+          {focusMode ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+        </IconBtn>
         <IconBtn label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} onClick={onToggleTheme}>
           {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
         </IconBtn>
@@ -94,9 +100,9 @@ const TOOLS: { type: ItemType; label: string; icon: typeof StickyNote }[] = [
   { type: "checklist", label: "Checklist", icon: ListChecks },
 ];
 
-export function Toolbar({ onCreate }: { onCreate: (t: ItemType) => void }) {
+export function Toolbar({ onCreate, dimmed }: { onCreate: (t: ItemType) => void; dimmed: boolean }) {
   return (
-    <nav className="panel absolute left-1/2 bottom-4 z-[100000] flex -translate-x-1/2 gap-1 p-1.5" aria-label="Create">
+    <nav className={cn("panel chrome absolute left-1/2 bottom-4 z-[100000] flex -translate-x-1/2 gap-1 p-1.5", dimmed && "chrome-dim")} aria-label="Create">
       {TOOLS.map((t) => (
         <button key={t.type} className="tool-create" onClick={() => onCreate(t.type)}>
           <t.icon className="size-4" />
@@ -107,9 +113,9 @@ export function Toolbar({ onCreate }: { onCreate: (t: ItemType) => void }) {
   );
 }
 
-export function ZoomControls({ zoom, onZoom, onFit }: { zoom: number; onZoom: (f: number) => void; onFit: () => void }) {
+export function ZoomControls({ zoom, onZoom, onFit, dimmed }: { zoom: number; onZoom: (f: number) => void; onFit: () => void; dimmed: boolean }) {
   return (
-    <div className="panel absolute bottom-4 left-4 z-[100000] flex items-center gap-0.5 p-1">
+    <div className={cn("panel chrome absolute bottom-4 left-4 z-[100000] flex items-center gap-0.5 p-1", dimmed && "chrome-dim")}>
       <IconBtn label="Zoom out" onClick={() => onZoom(1 / 1.2)}><Minus className="size-4" /></IconBtn>
       <span className="w-12 text-center text-xs tabular-nums text-muted-foreground">{Math.round(zoom * 100)}%</span>
       <IconBtn label="Zoom in" onClick={() => onZoom(1.2)}><Plus className="size-4" /></IconBtn>
