@@ -30,7 +30,7 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
       e.preventDefault();
       const v = viewRef.current;
       const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 100 : 1);
-      const next = clamp(v.zoom * Math.exp(-dy * 0.0015), MIN_ZOOM, MAX_ZOOM);
+      const next = clamp(v.zoom * Math.exp(-dy * WHEEL_ZOOM_INTENSITY), MIN_ZOOM, MAX_ZOOM);
       const rect = el.getBoundingClientRect();
       const px = e.clientX - rect.left, py = e.clientY - rect.top;
       const k = next / v.zoom;
