@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import type { ItemType } from "@/lib/cosmos/types";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
+import { ZOOM_STEP } from "./Canvas";
 import { cn } from "@/lib/utils";
 
 export function TopBar({ store, theme, onToggleTheme, dimmed, focusMode, onToggleFocusMode }: {
@@ -116,9 +117,9 @@ export function Toolbar({ onCreate, dimmed }: { onCreate: (t: ItemType) => void;
 export function ZoomControls({ zoom, onZoom, onFit, dimmed }: { zoom: number; onZoom: (f: number) => void; onFit: () => void; dimmed: boolean }) {
   return (
     <div className={cn("panel chrome absolute bottom-4 left-4 z-[100000] flex items-center gap-0.5 p-1", dimmed && "chrome-dim")}>
-      <IconBtn label="Zoom out" onClick={() => onZoom(1 / 1.2)}><Minus className="size-4" /></IconBtn>
+      <IconBtn label="Zoom out" onClick={() => onZoom(1 / ZOOM_STEP)}><Minus className="size-4" /></IconBtn>
       <span className="w-12 text-center text-xs tabular-nums text-muted-foreground">{Math.round(zoom * 100)}%</span>
-      <IconBtn label="Zoom in" onClick={() => onZoom(1.2)}><Plus className="size-4" /></IconBtn>
+      <IconBtn label="Zoom in" onClick={() => onZoom(ZOOM_STEP)}><Plus className="size-4" /></IconBtn>
       <IconBtn label="Fit to content" onClick={onFit}><Maximize className="size-4" /></IconBtn>
     </div>
   );
