@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
 import { trackDrag } from "@/lib/cosmos/drag";
 import { NoteItem } from "./NoteItem";
+import { CalendarItem } from "./CalendarItem";
 import { cn } from "@/lib/utils";
 
 export const MIN_ZOOM = 0.2;
@@ -77,16 +78,27 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
         style={{ transform: `translate(${view.x}px, ${view.y}px) scale(${view.zoom})` }}
       >
         <div className="pointer-events-auto">
-          {items.map((item) => (
-            <NoteItem
-              key={item.id}
-              item={item}
-              zoom={view.zoom}
-              selected={selected === item.id}
-              onSelect={setSelected}
-              store={store}
-            />
-          ))}
+          {items.map((item) =>
+            item.type === "calendar" ? (
+              <CalendarItem
+                key={item.id}
+                item={item}
+                zoom={view.zoom}
+                selected={selected === item.id}
+                onSelect={setSelected}
+                store={store}
+              />
+            ) : (
+              <NoteItem
+                key={item.id}
+                item={item}
+                zoom={view.zoom}
+                selected={selected === item.id}
+                onSelect={setSelected}
+                store={store}
+              />
+            ),
+          )}
         </div>
       </div>
     </div>
