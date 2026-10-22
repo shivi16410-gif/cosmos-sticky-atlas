@@ -103,6 +103,12 @@
   --shadow-note: 0 1px 2px oklch(0.2 0.02 270 / 0.08), 0 8px 24px -8px oklch(0.2 0.02 270 / 0.18);
   --shadow-panel: 0 1px 2px oklch(0.2 0.02 270 / 0.05), 0 10px 30px -12px oklch(0.2 0.02 270 / 0.2);
   --gradient-logo: linear-gradient(135deg, oklch(0.62 0.17 285), oklch(0.65 0.14 240));
+  --cal-bg: oklch(0.965 0.02 85);
+  --cal-heading: oklch(0.55 0.11 45);
+  --cal-weekday: oklch(0.6 0.08 45);
+  --cal-today-bg: oklch(0.87 0.045 80);
+  --cal-today-fg: oklch(0.32 0.04 60);
+  --cal-doodle: oklch(0.78 0.07 15);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -147,6 +153,12 @@
   --panel: oklch(0.23 0.02 270 / 0.85);
   --shadow-note: 0 1px 2px oklch(0 0 0 / 0.3), 0 10px 28px -8px oklch(0 0 0 / 0.55);
   --shadow-panel: 0 1px 2px oklch(0 0 0 / 0.3), 0 12px 32px -12px oklch(0 0 0 / 0.6);
+  --cal-bg: oklch(0.25 0.025 60);
+  --cal-heading: oklch(0.74 0.09 50);
+  --cal-weekday: oklch(0.66 0.05 55);
+  --cal-today-bg: oklch(0.5 0.045 65);
+  --cal-today-fg: oklch(0.95 0.02 80);
+  --cal-doodle: oklch(0.55 0.06 20);
 }
 
 @layer base {
@@ -231,6 +243,21 @@
   .chrome-dim { opacity: 0.12; }
   .chrome-dim:hover, .chrome-dim:focus-within { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .chrome { transition: none; } }
+
+  /* Calendar panel */
+  .cal-panel { background: var(--cal-bg); }
+  .cal-heading { color: var(--cal-heading); }
+  .cal-weekday { color: var(--cal-weekday); }
+  .cal-doodle { color: var(--cal-doodle); }
+  .cal-day { color: var(--color-foreground); transition: background 0.15s; }
+  .cal-day:hover { background: color-mix(in oklab, var(--cal-today-bg) 55%, transparent); }
+  .cal-day-outside { opacity: 0.32; }
+  .cal-today { background: var(--cal-today-bg); color: var(--cal-today-fg); font-weight: 700;
+    box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--cal-heading) 35%, transparent); }
+  .cal-today:hover { background: var(--cal-today-bg); }
+  .cal-today-btn { padding: 0.45rem; font-size: 0.8rem; font-weight: 600; color: var(--cal-heading);
+    border-radius: var(--radius-md); transition: background 0.15s; }
+  .cal-today-btn:hover { background: color-mix(in oklab, var(--cal-today-bg) 55%, transparent); }
 }
 
 @keyframes pop { from { opacity: 0; transform: scale(0.96) translateY(-2px); } to { opacity: 1; transform: none; } }
