@@ -1,130 +1,109 @@
-# Cosmos Sticky Atlas
+# 🌌 COSMOS — Your Space to Think, Create & Plan
 
-Build COSMOS, a modern, interactive infinite-canvas web app for organizing thoughts, plans, goals, lists, photos, ideas, and personal visions.
+**COSMOS** is a personal infinite-canvas workspace designed to bring your thoughts, ideas, goals, plans, and creativity together in one place.
 
-1. Design and Theme
+Instead of switching between multiple productivity tools, COSMOS gives you a visual space where you can organize your thoughts freely, arrange sticky notes, plan your goals, and build your own creative workspace.
 
-Create a clean, premium, minimal interface inspired by a physical whiteboard and modern productivity tools.
+> *Your thoughts. Your space. Your universe.*
 
-Default theme — Light Mode:
+---
 
-Use a clean white or soft off-white canvas background, like a real whiteboard.
+## ✨ Features
 
-Add a very subtle light-grey dotted grid to help users organize items spatially.
+- **♾️ Infinite Canvas** — Explore a spacious canvas with panning and zoom controls.
+- **📝 Sticky Notes** — Capture thoughts, ideas, and reminders using colorful notes.
+- **💡 Idea Cards** — Keep track of inspiration and brainstorms.
+- **🎯 Goal Cards** — Visualize personal goals and aspirations.
+- **☑️ Checklists** — Organize tasks and track your progress.
+- **📅 Calendar** — View dates in an aesthetic calendar interface.
+- **🎨 Light & Dark Mode** — Switch between themes to suit your workspace.
+- **✍️ Handwriting Style** — Give your notes a more personal, handwritten feel.
+- **🗺️ Minimap** — Navigate your canvas and locate items more easily.
+- **↩️ Undo & Redo** — Reverse and restore supported actions.
+- **💾 Autosave** — Keep your workspace changes saved between sessions.
 
-Use soft pastel sticky notes: yellow, lavender, pale blue, mint green, and light pink.
+*Features and behavior may evolve as development continues.*
 
-Use dark, readable text with subtle borders and shadows.
+---
 
-Keep the interface airy, elegant, and distraction-free.
+## 🎨 Design Philosophy
 
-Use restrained purple and blue accents for buttons and active states.
+COSMOS combines the freedom of a whiteboard with the personality of a digital planner.
 
-Separate Dark Mode:
+- Clean, whiteboard-inspired light mode.
+- A calm, dark theme for a different working atmosphere.
+- Soft pastel colors and handwritten details.
+- A visual-first experience that encourages creativity without unnecessary clutter.
 
-Add a clearly visible theme toggle in the top navigation bar, using a sun/moon icon.
+---
 
-Light mode must be the default when a user opens COSMOS for the first time.
+## 🛠️ Tech Stack
 
-Dark mode should have a deep midnight or charcoal canvas with a subtle darker grid.
+- **React** — User interface
+- **TypeScript** — Application logic and type safety
+- **Vite** — Development server and build tooling
+- **CSS** — Styling and responsive layouts
+- **Git & GitHub** — Version control
 
-Adapt text, panels, borders, menus, and controls for readability in dark mode.
+---
 
-Keep sticky notes in soft, readable colors in both themes.
+## 🚧 What's Next?
 
-Save the user's selected theme so it persists after refreshing or reopening the app.
+COSMOS is being developed incrementally. Planned improvements include:
 
-Switching themes must not change the positions, sizes, colors, or contents of canvas items.
+- Freehand drawing directly on the canvas.
+- Adding text anywhere on the canvas.
+- Uploading, moving, and resizing images.
+- Movable calendar widgets with multiple calendar instances.
+- Connecting related notes and ideas with arrows or lines.
+- Further improvements to workspace usability and reliability.
 
-2. Infinite Canvas
+These features are planned and may change as development progresses.
 
-Create a large, pannable and zoomable canvas.
+---
 
-Support dragging items anywhere on the canvas.
+## 💻 Getting Started
 
-Allow users to zoom in and out using mouse controls.
+To run the project locally, you will need Node.js and Git installed.
 
-Provide a small minimap or canvas navigation control if practical.
+1. Clone the repository:
 
-Keep the canvas as the main focus of the application.
+   ```bash
+   git clone <YOUR_REPOSITORY_URL>
+   ```
 
-3. Sticky Notes and Items
+2. Open the project directory:
 
-Users should be able to:
+   ```bash
+   cd cosmos-sticky-atlas
+   ```
 
-Create a new sticky note with a single click.
+3. Install dependencies:
 
-Edit text directly inside a note.
+   ```bash
+   npm install
+   ```
 
-Drag, resize, recolor, and delete notes.
+4. Start the development server:
 
-Choose from multiple pastel note colors.
+   ```bash
+   npm run dev
+   ```
 
-Select handwriting-style fonts as well as standard readable fonts.
+Open the local URL shown in your terminal to view COSMOS.
 
-Create different item types: Simple Note, Idea, Goal, and Checklist.
+---
 
-Add checkboxes to checklist notes and mark tasks as complete.
+## 🌱 Project Status
 
-4. User Interface
+COSMOS is an actively evolving personal project. Development focuses on building a reliable foundation first, followed by thoughtful features and visual refinements.
 
-Add a top navigation bar with the COSMOS logo, theme toggle, undo, redo, and save status.
+---
 
-Add a compact toolbar for creating notes, checklists, goals, and ideas.
+## 👨‍💻 Built With Curiosity
 
-Include a clean, unobtrusive settings menu.
+Created as a learning and building project focused on frontend development, interactive interfaces, and creative productivity tools.
 
-Use smooth, subtle animations without making the app feel slow.
+**COSMOS — Make space for your ideas.** ✨
 
-Ensure buttons, menus, and controls actually work.
-
-5. Saving and Reliability
-
-Automatically save changes locally using an appropriate browser storage solution.
-
-Restore the canvas, notes, positions, sizes, and selected theme after a page refresh.
-
-Implement undo and redo for common canvas actions.
-
-Avoid losing existing data when switching themes.
-
-Display a subtle “Saved” or “Saving…” status.
-
-6. Technical Requirements
-
-Build this as a web application using React, Vite, JavaScript, and CSS.
-
-Use reusable components and clean, understandable code.
-
-Make the layout responsive for desktop and tablet screens.
-
-Use a suitable canvas interaction library if needed.
-
-Keep the initial version focused on a reliable working canvas rather than adding too many features at once.
-
-7. Future-Ready Structure
-
-Keep the architecture flexible enough to add calendar planning, image uploads, vision boards, search, cloud sync, collaboration, and AI-powered organization in later versions.
-
-Important: Prioritize a functional, polished MVP. Do not create static mockups of controls that do nothing. Test note creation, editing, dragging, resizing, deletion, theme switching, autosave, and restoration after refresh.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/bf636b2e-069c-5a41-a998-4c267e31c1a0).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
 ```
