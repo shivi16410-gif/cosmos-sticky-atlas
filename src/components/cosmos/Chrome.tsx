@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  Check, Download, Eye, EyeOff, Lightbulb, ListChecks, Loader2, Maximize, Minus, Moon, Plus, Redo2,
+  CalendarDays, Check, Download, Eye, EyeOff, Lightbulb, ListChecks, Loader2, Maximize, Minus, Moon, Plus, Redo2,
   Settings as SettingsIcon, StickyNote, Sun, Target, Trash2, Undo2,
 } from "lucide-react";
 import type { ItemType } from "@/lib/cosmos/types";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
 import { ZOOM_STEP } from "./Canvas";
+import { CalendarPanel } from "./CalendarPanel";
 import { cn } from "@/lib/utils";
 
 export function TopBar({ store, theme, onToggleTheme, dimmed, focusMode, onToggleFocusMode }: {
@@ -32,6 +33,7 @@ export function TopBar({ store, theme, onToggleTheme, dimmed, focusMode, onToggl
         <IconBtn label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} onClick={onToggleTheme}>
           {theme === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
         </IconBtn>
+        <CalendarButton />
         <SettingsMenu store={store} />
       </div>
     </header>
