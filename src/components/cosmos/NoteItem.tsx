@@ -1,5 +1,5 @@
 import { memo, useRef } from "react";
-import { Copy, Lightbulb, ListChecks, Plus, StickyNote, Target, Trash2, X } from "lucide-react";
+import { CalendarDays, Copy, Lightbulb, ListChecks, Plus, StickyNote, Target, Trash2, X } from "lucide-react";
 import type { CanvasItem, CheckItem } from "@/lib/cosmos/types";
 import { COLOR_CLASS, FONTS, NOTE_COLORS, uid } from "@/lib/cosmos/types";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
@@ -11,6 +11,7 @@ const TYPE_META = {
   idea: { icon: Lightbulb, label: "Idea" },
   goal: { icon: Target, label: "Goal" },
   checklist: { icon: ListChecks, label: "Checklist" },
+  calendar: { icon: CalendarDays, label: "Calendar" },
 } as const;
 
 interface Props {

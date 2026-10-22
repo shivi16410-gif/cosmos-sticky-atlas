@@ -57,6 +57,7 @@
   --color-note-mint: var(--note-mint);
   --color-note-pink: var(--note-pink);
   --color-note-foreground: var(--note-foreground);
+  --color-cal-bg: var(--cal-bg);
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Fraunces", Georgia, serif;
   --font-hand: "Caveat", cursive;
@@ -244,20 +245,16 @@
   .chrome-dim:hover, .chrome-dim:focus-within { opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .chrome { transition: none; } }
 
-  /* Calendar panel */
-  .cal-panel { background: var(--cal-bg); }
+  /* Calendar canvas widget */
+  .cal-card { background: var(--cal-bg); border-radius: 4px 4px 14px 4px; box-shadow: var(--shadow-note);
+    border: 1px solid oklch(0.2 0.02 270 / 0.06); animation: note-in 0.18s ease-out; overflow: hidden; }
   .cal-heading { color: var(--cal-heading); }
   .cal-weekday { color: var(--cal-weekday); }
   .cal-doodle { color: var(--cal-doodle); }
   .cal-day { color: var(--color-foreground); transition: background 0.15s; }
-  .cal-day:hover { background: color-mix(in oklab, var(--cal-today-bg) 55%, transparent); }
   .cal-day-outside { opacity: 0.32; }
   .cal-today { background: var(--cal-today-bg); color: var(--cal-today-fg); font-weight: 700;
     box-shadow: 0 0 0 1.5px color-mix(in oklab, var(--cal-heading) 35%, transparent); }
-  .cal-today:hover { background: var(--cal-today-bg); }
-  .cal-today-btn { padding: 0.45rem; font-size: 0.8rem; font-weight: 600; color: var(--cal-heading);
-    border-radius: var(--radius-md); transition: background 0.15s; }
-  .cal-today-btn:hover { background: color-mix(in oklab, var(--cal-today-bg) 55%, transparent); }
 }
 
 @keyframes pop { from { opacity: 0; transform: scale(0.96) translateY(-2px); } to { opacity: 1; transform: none; } }

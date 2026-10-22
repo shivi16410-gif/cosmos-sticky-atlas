@@ -94,6 +94,7 @@ export function useCosmosStore() {
         id: uid(), type, w: d.w, h: d.h, x: cx - d.w / 2, y: cy - d.h / 2, z,
         color: d.color, font: "sans", text: d.text,
         checklist: type === "checklist" ? [{ id: uid(), text: "", done: false }] : undefined,
+        calFollow: type === "calendar" ? true : undefined,
       };
       mutate((prev) => [...prev, item]);
       return item.id;
