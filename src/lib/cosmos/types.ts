@@ -1,5 +1,5 @@
 // Core data model. New item kinds (image, event, vision) can be added to ItemType later.
-export type ItemType = "note" | "idea" | "goal" | "checklist";
+export type ItemType = "note" | "idea" | "goal" | "checklist" | "calendar";
 export type NoteColor = "yellow" | "lavender" | "blue" | "mint" | "pink";
 export type NoteFont = "sans" | "hand" | "marker" | "serif";
 
@@ -21,6 +21,10 @@ export interface CanvasItem {
   font: NoteFont;
   text: string;
   checklist?: CheckItem[] | undefined;
+  /** Calendar widgets: shown month/year when not following, plus follow-current-month flag. */
+  calMonth?: number | undefined;
+  calYear?: number | undefined;
+  calFollow?: boolean | undefined;
 }
 
 export interface View {
@@ -56,6 +60,7 @@ export const TYPE_DEFAULTS: Record<ItemType, { color: NoteColor; text: string; w
   idea: { color: "lavender", text: "", w: 220, h: 180 },
   goal: { color: "mint", text: "", w: 240, h: 170 },
   checklist: { color: "blue", text: "To do", w: 250, h: 240 },
+  calendar: { color: "yellow", text: "", w: 300, h: 330 },
 };
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
