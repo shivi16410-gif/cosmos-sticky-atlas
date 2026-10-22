@@ -48,6 +48,23 @@ function IconBtn({ label, children, active, ...rest }: React.ButtonHTMLAttribute
   );
 }
 
+function CalendarButton() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const close = (e: PointerEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
+    window.addEventListener("pointerdown", close);
+    return () => window.removeEventListener("pointerdown", close);
+  }, [open]);
+  return (
+    <div ref={ref} className="relative">
+      <IconBtn label="Calendar" onClick={() => setOpen((o) => !o)} active={open}><CalendarDays className="size-4" /></IconBtn>
+      {open && <CalendarPanel onClose={() => setOpen(false)} />}
+    </div>
+  );
+}
+
 function SettingsMenu({ store }: { store: CosmosStore }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
