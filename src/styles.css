@@ -200,10 +200,10 @@
     border-radius: var(--radius-lg); transition: background 0.15s, color 0.15s, transform 0.15s; }
   .tool-create:hover { background: var(--color-accent); color: var(--color-accent-foreground); }
   .tool-create-active, .tool-create-active:hover { background: var(--color-primary); color: var(--color-primary-foreground); }
-  .text-item { position: absolute; border-radius: 4px; outline: 1px dashed transparent; outline-offset: 4px; cursor: grab; }
-  .text-item:hover { outline-color: color-mix(in oklab, var(--color-foreground) 20%, transparent); }
-  .text-item.text-selected { outline: 1.5px solid var(--color-primary); }
-  .text-item.text-editing { cursor: text; }
+  .cosmos-text { position: absolute; border-radius: 4px; outline: 1px dashed transparent; outline-offset: 4px; cursor: grab; }
+  .cosmos-text:hover { outline-color: color-mix(in oklab, var(--color-foreground) 20%, transparent); }
+  .cosmos-text.cosmos-text-selected { outline: 1.5px solid var(--color-primary); }
+  .cosmos-text.cosmos-text-editing { cursor: text; }
   .text-sizer { display: inline-grid; }
   .text-sizer > * { grid-area: 1 / 1; font: inherit; line-height: 1.3; white-space: pre; padding: 0; margin: 0; border: 0; min-width: 1ch; }
   .text-sizer > textarea { background: transparent; outline: none; resize: none; overflow: hidden; color: inherit; }

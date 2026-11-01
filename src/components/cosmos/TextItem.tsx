@@ -67,7 +67,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
       data-item={item.id}
       onPointerDown={onPointerDown}
       onDoubleClick={(e) => { e.stopPropagation(); setEditing(item.id); }}
-      className={cn("text-item", colorClass, selected && "text-selected", editing && "text-editing")}
+      className={cn("cosmos-text", colorClass, selected && "cosmos-text-selected", editing && "cosmos-text-editing")}
       style={{ left: item.x, top: item.y, zIndex: item.z, fontSize: size }}
     >
       {selected && (
