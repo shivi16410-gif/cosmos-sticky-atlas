@@ -97,7 +97,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
         </div>
       )}
       <div className="text-sizer font-sans">
-        <span aria-hidden>{item.text + " "}</span>
+        <span aria-hidden>{(item.text || "Type…") + " "}</span>
         <textarea
           ref={taRef}
           aria-label="Text"
