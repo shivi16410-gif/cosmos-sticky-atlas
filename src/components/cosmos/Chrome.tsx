@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   CalendarDays, Check, Download, Eye, EyeOff, Lightbulb, ListChecks, Loader2, Maximize, Minus, Moon, Plus, Redo2,
-  Settings as SettingsIcon, StickyNote, Sun, Target, Trash2, Undo2,
+  Settings as SettingsIcon, StickyNote, Sun, Target, Type, Trash2, Undo2,
 } from "lucide-react";
 import type { ItemType } from "@/lib/cosmos/types";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
@@ -102,9 +102,17 @@ const TOOLS: { type: ItemType; label: string; icon: typeof StickyNote }[] = [
   { type: "calendar", label: "Calendar", icon: CalendarDays },
 ];
 
-export function Toolbar({ onCreate, dimmed }: { onCreate: (t: ItemType) => void; dimmed: boolean }) {
+export function Toolbar({ onCreate, dimmed, textTool, onToggleText }: {
+  onCreate: (t: ItemType) => void; dimmed: boolean; textTool: boolean; onToggleText: () => void;
+}) {
   return (
     <nav className={cn("panel chrome absolute left-1/2 bottom-4 z-[100000] flex -translate-x-1/2 gap-1 p-1.5", dimmed && "chrome-dim")} aria-label="Create">
+      <button className={cn("tool-create", textTool && "tool-create-active")} onClick={onToggleText} aria-pressed={textTool}
+        title="Text tool: click anywhere on the canvas to type (Esc to exit)">
+        <Type className="size-4" />
+        <span>Text</span>
+      </button>
+      <span className="mx-0.5 w-px self-stretch bg-border" />
       {TOOLS.map((t) => (
         <button key={t.type} className="tool-create" onClick={() => onCreate(t.type)}>
           <t.icon className="size-4" />

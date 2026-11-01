@@ -12,6 +12,7 @@ const TYPE_META = {
   goal: { icon: Target, label: "Goal" },
   checklist: { icon: ListChecks, label: "Checklist" },
   calendar: { icon: CalendarDays, label: "Calendar" },
+  text: { icon: StickyNote, label: "Text" },
 } as const;
 
 interface Props {

@@ -3,6 +3,7 @@ import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
 import { trackDrag } from "@/lib/cosmos/drag";
 import { NoteItem } from "./NoteItem";
 import { CalendarItem } from "./CalendarItem";
+import { TextItem } from "./TextItem";
 import { cn } from "@/lib/utils";
 
 export const MIN_ZOOM = 0.2;
@@ -16,9 +17,12 @@ interface Props {
   selected: string | null;
   setSelected: (id: string | null) => void;
   containerRef: React.RefObject<HTMLDivElement | null>;
+  textTool: boolean;
+  editing: string | null;
+  setEditing: (id: string | null) => void;
 }
 
-export function Canvas({ store, selected, setSelected, containerRef }: Props) {
+export function Canvas({ store, selected, setSelected, containerRef, textTool, editing, setEditing }: Props) {
   const { view, setView, items, settings } = store;
   const viewRef = useRef(view);
   viewRef.current = view;
@@ -46,6 +50,12 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
     setSelected(null);
     (document.activeElement as HTMLElement | null)?.blur?.();
     e.preventDefault();
+    if (textTool && e.button === 0) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const id = store.add("text", (e.clientX - rect.left - view.x) / view.zoom, (e.clientY - rect.top - view.y) / view.zoom);
+      setSelected(id); setEditing(id);
+      return;
+    }
     const ox = view.x, oy = view.y;
     containerRef.current?.classList.add("is-panning");
     trackDrag(
@@ -56,7 +66,7 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
   };
 
   const onDoubleClick = (e: React.MouseEvent) => {
-    if (e.target !== e.currentTarget) return;
+    if (e.target !== e.currentTarget || textTool) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const cx = (e.clientX - rect.left - view.x) / view.zoom;
     const cy = (e.clientY - rect.top - view.y) / view.zoom;
@@ -70,7 +80,7 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
       ref={containerRef}
       onPointerDown={onPointerDown}
       onDoubleClick={onDoubleClick}
-      className={cn("canvas-surface absolute inset-0 overflow-hidden", settings.showGrid && "canvas-grid")}
+      className={cn("canvas-surface absolute inset-0 overflow-hidden", settings.showGrid && "canvas-grid", textTool && "cursor-text")}
       style={{ backgroundSize: `${grid}px ${grid}px`, backgroundPosition: `${view.x}px ${view.y}px` }}
     >
       <div
@@ -79,7 +89,18 @@ export function Canvas({ store, selected, setSelected, containerRef }: Props) {
       >
         <div className="pointer-events-auto">
           {items.map((item) =>
-            item.type === "calendar" ? (
+            item.type === "text" ? (
+              <TextItem
+                key={item.id}
+                item={item}
+                zoom={view.zoom}
+                selected={selected === item.id}
+                editing={editing === item.id}
+                onSelect={setSelected}
+                setEditing={setEditing}
+                store={store}
+              />
+            ) : item.type === "calendar" ? (
               <CalendarItem
                 key={item.id}
                 item={item}
