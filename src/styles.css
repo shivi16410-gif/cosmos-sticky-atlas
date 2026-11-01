@@ -200,7 +200,7 @@
     border-radius: var(--radius-lg); transition: background 0.15s, color 0.15s, transform 0.15s; }
   .tool-create:hover { background: var(--color-accent); color: var(--color-accent-foreground); }
   .tool-create-active, .tool-create-active:hover { background: var(--color-primary); color: var(--color-primary-foreground); }
-  .cosmos-text { position: absolute; border-radius: 4px; outline: 1px dashed transparent; outline-offset: 4px; cursor: grab; }
+  .cosmos-text { position: absolute; width: max-content; border-radius: 4px; outline: 1px dashed transparent; outline-offset: 4px; cursor: grab; }
   .cosmos-text:hover { outline-color: color-mix(in oklab, var(--color-foreground) 20%, transparent); }
   .cosmos-text.cosmos-text-selected { outline: 1.5px solid var(--color-primary); }
   .cosmos-text.cosmos-text-editing { cursor: text; }
