@@ -1,7 +1,16 @@
 // Core data model. New item kinds (image, event, vision) can be added to ItemType later.
-export type ItemType = "note" | "idea" | "goal" | "checklist" | "calendar";
+export type ItemType = "note" | "idea" | "goal" | "checklist" | "calendar" | "text";
 export type NoteColor = "yellow" | "lavender" | "blue" | "mint" | "pink";
 export type NoteFont = "sans" | "hand" | "marker" | "serif";
+
+export type TextColor = "ink" | "muted" | "accent" | "red";
+export const TEXT_COLORS: { id: TextColor; className: string }[] = [
+  { id: "ink", className: "text-foreground" },
+  { id: "muted", className: "text-muted-foreground" },
+  { id: "accent", className: "text-primary" },
+  { id: "red", className: "text-destructive" },
+];
+export const TEXT_SIZES = [14, 18, 24, 36, 48];
 
 export interface CheckItem {
   id: string;
@@ -25,6 +34,9 @@ export interface CanvasItem {
   calMonth?: number | undefined;
   calYear?: number | undefined;
   calFollow?: boolean | undefined;
+  /** Free text elements: font size (px) and color token. */
+  fontSize?: number | undefined;
+  textColor?: TextColor | undefined;
 }
 
 export interface View {
@@ -61,6 +73,7 @@ export const TYPE_DEFAULTS: Record<ItemType, { color: NoteColor; text: string; w
   goal: { color: "mint", text: "", w: 240, h: 170 },
   checklist: { color: "blue", text: "To do", w: 250, h: 240 },
   calendar: { color: "yellow", text: "", w: 300, h: 330 },
+  text: { color: "yellow", text: "", w: 40, h: 30 },
 };
 
 export const uid = () => Math.random().toString(36).slice(2, 10);

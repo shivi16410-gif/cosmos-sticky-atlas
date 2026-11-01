@@ -90,8 +90,11 @@ export function useCosmosStore() {
     (type: ItemType, cx: number, cy: number) => {
       const d = TYPE_DEFAULTS[type];
       const z = Math.max(0, ...itemsRef.current.map((i) => i.z)) + 1;
+      // Text is placed with its top-left at the click point; other items are centered.
+      const x = type === "text" ? cx : cx - d.w / 2, y = type === "text" ? cy - 14 : cy - d.h / 2;
       const item: CanvasItem = {
-        id: uid(), type, w: d.w, h: d.h, x: cx - d.w / 2, y: cy - d.h / 2, z,
+        id: uid(), type, w: d.w, h: d.h, x, y, z,
+        fontSize: type === "text" ? 24 : undefined, textColor: type === "text" ? "ink" : undefined,
         color: d.color, font: "sans", text: d.text,
         checklist: type === "checklist" ? [{ id: uid(), text: "", done: false }] : undefined,
         calFollow: type === "calendar" ? true : undefined,
@@ -102,7 +105,7 @@ export function useCosmosStore() {
     [mutate],
   );
 
-  const remove = useCallback((id: string) => mutate((prev) => prev.filter((i) => i.id !== id)), [mutate]);
+  const remove = useCallback((id: string, record = true) => mutate((prev) => prev.filter((i) => i.id !== id), record), [mutate]);
 
   const duplicate = useCallback(
     (id: string) => {

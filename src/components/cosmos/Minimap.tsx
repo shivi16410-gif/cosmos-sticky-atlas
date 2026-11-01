@@ -33,7 +33,7 @@ export function Minimap({ items, view, size, onCenter, dimmed }: {
       role="img"
     >
       {items.map((i) => (
-        <div key={i.id} className={`absolute rounded-[2px] ${i.type === "calendar" ? "bg-cal" : COLOR_CLASS[i.color]}`}
+        <div key={i.id} className={`absolute rounded-[2px] ${i.type === "calendar" ? "bg-cal" : i.type === "text" ? "bg-muted-foreground" : COLOR_CLASS[i.color]}`}
           style={{ left: tx(i.x), top: ty(i.y), width: Math.max(2, i.w * s), height: Math.max(2, i.h * s) }} />
       ))}
       <div className="minimap-viewport absolute" style={{ left: tx(vp.x), top: ty(vp.y), width: vp.w * s, height: vp.h * s }} />
