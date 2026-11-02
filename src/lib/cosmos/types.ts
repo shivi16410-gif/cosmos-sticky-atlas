@@ -36,7 +36,12 @@ export interface CanvasItem {
   calFollow?: boolean | undefined;
   /** Free text elements: font size (px) and color token. */
   fontSize?: number | undefined;
-  textColor?: TextColor | undefined;
+  /** Preset id (theme-aware) or a custom hex color. */
+  textColor?: TextColor | string | undefined;
+  /** Optional background color (hex); transparent when unset. */
+  textBg?: string | undefined;
+  /** Fixed width set by resizing; text wraps when set. */
+  textWidth?: number | undefined;
 }
 
 export interface View {

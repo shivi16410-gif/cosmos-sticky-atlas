@@ -204,10 +204,14 @@
   .cosmos-text:hover { outline-color: color-mix(in oklab, var(--color-foreground) 20%, transparent); }
   .cosmos-text.cosmos-text-selected { outline: 1.5px solid var(--color-primary); }
   .cosmos-text.cosmos-text-editing { cursor: text; }
-  .text-sizer { display: inline-block; position: relative; }
-  .text-sizer > * { display: block; font: inherit; line-height: 1.3; white-space: pre; padding: 0; margin: 0; border: 0; min-width: 1ch; }
-  .text-sizer > textarea { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; background: transparent; outline: none; resize: none; overflow: hidden; color: inherit; }
-  .text-sizer > span { visibility: hidden; }
+  .cosmos-sizer { display: inline-block; position: relative; }
+  .cosmos-sizer > * { display: block; font: inherit; line-height: 1.3; white-space: pre; padding: 0; margin: 0; border: 0; min-width: 1ch; }
+  .cosmos-sizer > textarea { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; background: transparent; outline: none; resize: none; overflow: hidden; color: inherit; }
+  .cosmos-sizer > span { visibility: hidden; }
+  .cosmos-wrap { display: block; }
+  .cosmos-wrap > * { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cosmos-resize { position: absolute; right: -9px; bottom: -9px; width: 12px; height: 12px; border-radius: 3px; cursor: nwse-resize;
+    background: var(--color-background); border: 1.5px solid var(--color-primary); }
   .tool-create:active { transform: scale(0.96); }
 
   .menu-pop { animation: pop 0.14s ease-out; transform-origin: top right; }
