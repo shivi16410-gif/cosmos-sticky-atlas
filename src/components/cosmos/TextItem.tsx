@@ -111,7 +111,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
         <div
           data-nodrag
           className="note-toolbar absolute -top-12 left-0 z-10 flex w-max items-center gap-1 text-[15px] font-sans"
-          onPointerDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
+          onPointerDown={(e) => { e.stopPropagation(); }}
         >
           <button aria-label="Smaller text" className="tool-btn" onClick={() => setSize(-1)}><Minus className="size-4" /></button>
           <span className="w-7 text-center text-xs tabular-nums text-muted-foreground">{size}</span>
@@ -131,9 +131,6 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
               <span className="text-sm font-bold">A</span>
             </button>
           ))}
-          <button aria-label="Text color chart" title="More text colors" className={cn("tool-btn", pop === "color" && "icon-btn-active")} onClick={() => setPop(pop === "color" ? null : "color")}>
-            <Palette className="size-4" />
-          </button>
           <button aria-label="Background color" title="Background color" className={cn("tool-btn", pop === "bg" && "icon-btn-active")} onClick={() => setPop(pop === "bg" ? null : "bg")}>
             <PaintBucket className="size-4" />
           </button>
