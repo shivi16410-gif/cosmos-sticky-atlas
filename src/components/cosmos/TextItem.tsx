@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState } from "react";
-import { Ban, Minus, PaintBucket, Palette, Plus, Trash2 } from "lucide-react";
+import { Ban, Minus, PaintBucket, Plus, Trash2 } from "lucide-react";
 import type { CanvasItem } from "@/lib/cosmos/types";
 import { FONTS, TEXT_COLORS, TEXT_SIZES } from "@/lib/cosmos/types";
 
