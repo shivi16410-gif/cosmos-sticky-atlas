@@ -110,7 +110,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
       {selected && (
         <div
           data-nodrag
-          className="note-toolbar absolute -top-12 left-0 flex items-center gap-1 text-[15px]"
+          className="note-toolbar absolute -top-12 left-0 z-10 flex w-max items-center gap-1 text-[15px] font-sans"
           onPointerDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
         >
           <button aria-label="Smaller text" className="tool-btn" onClick={() => setSize(-1)}><Minus className="size-4" /></button>
