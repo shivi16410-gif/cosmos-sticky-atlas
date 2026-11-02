@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Canvas, MAX_ZOOM, MIN_ZOOM, clamp } from "@/components/cosmos/Canvas";
+import type { CanvasTool } from "@/components/cosmos/Canvas";
 import { TopBar, Toolbar, ZoomControls } from "@/components/cosmos/Chrome";
 import { Minimap } from "@/components/cosmos/Minimap";
 import { useCosmosStore } from "@/lib/cosmos/useCosmosStore";
@@ -27,7 +28,9 @@ function CosmosApp() {
   const { theme, toggle } = useTheme();
   const { dimmed, focusMode, toggleFocusMode } = useChromeVisibility();
   const [selected, setSelected] = useState<string | null>(null);
-  const [textTool, setTextTool] = useState(false);
+  const [tool, setTool] = useState<CanvasTool>(null);
+  const [drawColor, setDrawColor] = useState("#7c3aed");
+  const [drawWidth, setDrawWidth] = useState(4);
   const [editing, setEditing] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 1280, h: 800 });
@@ -78,22 +81,22 @@ function CosmosApp() {
         e.preventDefault(); store.remove(selected); setSelected(null);
       } else if (e.key === "Escape") {
         if (editing) { setEditing(null); (document.activeElement as HTMLElement | null)?.blur?.(); return; }
-        if (textTool) { setTextTool(false); return; }
+        if (tool) { setTool(null); return; }
         setSelected(null); (document.activeElement as HTMLElement | null)?.blur?.();
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [store, selected, editing, textTool]);
+  }, [store, selected, editing, tool]);
 
   return (
     <main className="relative h-screen w-screen overflow-hidden bg-background text-foreground">
       <Canvas store={store} selected={selected} setSelected={setSelected} containerRef={containerRef}
-        textTool={textTool} editing={editing} setEditing={setEditing} />
+        tool={tool} editing={editing} setEditing={setEditing} drawColor={drawColor} drawWidth={drawWidth} />
       <TopBar store={store} theme={theme} onToggleTheme={toggle} dimmed={dimmed} focusMode={focusMode} onToggleFocusMode={toggleFocusMode} />
       {!focusMode && (
         <>
-          <Toolbar onCreate={create} dimmed={dimmed} textTool={textTool} onToggleText={() => setTextTool((t) => !t)} />
+          <Toolbar onCreate={create} dimmed={dimmed} tool={tool} onTool={setTool} drawColor={drawColor} setDrawColor={setDrawColor} drawWidth={drawWidth} setDrawWidth={setDrawWidth} />
           <ZoomControls zoom={view.zoom} onZoom={zoomBy} onFit={fit} dimmed={dimmed} />
           {store.settings.showMinimap && (
             <Minimap items={items} view={view} size={size} dimmed={dimmed}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   CalendarDays, Check, Download, Eye, EyeOff, Lightbulb, ListChecks, Loader2, Maximize, Minus, Moon, Plus, Redo2,
-  Settings as SettingsIcon, StickyNote, Sun, Target, Type, Trash2, Undo2,
+  Settings as SettingsIcon, StickyNote, Sun, Target, Type, Trash2, Undo2, Pencil, Eraser, Waypoints,
 } from "lucide-react";
 import type { ItemType } from "@/lib/cosmos/types";
 import type { CosmosStore } from "@/lib/cosmos/useCosmosStore";
@@ -102,15 +102,26 @@ const TOOLS: { type: ItemType; label: string; icon: typeof StickyNote }[] = [
   { type: "calendar", label: "Calendar", icon: CalendarDays },
 ];
 
-export function Toolbar({ onCreate, dimmed, textTool, onToggleText }: {
-  onCreate: (t: ItemType) => void; dimmed: boolean; textTool: boolean; onToggleText: () => void;
+export function Toolbar({ onCreate, dimmed, tool, onTool, drawColor, setDrawColor, drawWidth, setDrawWidth }: {
+  onCreate: (t: ItemType) => void; dimmed: boolean; tool: "text" | "draw" | "erase" | "connector" | null;
+  onTool: (tool: "text" | "draw" | "erase" | "connector" | null) => void; drawColor: string; setDrawColor: (color: string) => void; drawWidth: number; setDrawWidth: (width: number) => void;
 }) {
   return (
     <nav className={cn("panel chrome absolute left-1/2 bottom-4 z-[100000] flex -translate-x-1/2 gap-1 p-1.5", dimmed && "chrome-dim")} aria-label="Create">
-      <button className={cn("tool-create", textTool && "tool-create-active")} onClick={onToggleText} aria-pressed={textTool}
+      <button className={cn("tool-create", tool === "text" && "tool-create-active")} onClick={() => onTool(tool === "text" ? null : "text")} aria-pressed={tool === "text"}
         title="Text tool: click anywhere on the canvas to type (Esc to exit)">
         <Type className="size-4" />
         <span>Text</span>
+      </button>
+      <button className={cn("tool-create", tool === "draw" && "tool-create-active")} onClick={() => onTool(tool === "draw" ? null : "draw")} aria-pressed={tool === "draw"} title="Draw on the canvas">
+        <Pencil className="size-4" /><span>Draw</span>
+      </button>
+      {tool === "draw" && <><input aria-label="Drawing color" type="color" value={drawColor} onChange={(e) => setDrawColor(e.target.value)} className="size-7 cursor-pointer rounded" /><select aria-label="Stroke size" value={drawWidth} onChange={(e) => setDrawWidth(Number(e.target.value))} className="tool-select"><option value="2">2px</option><option value="4">4px</option><option value="7">7px</option><option value="12">12px</option></select></>}
+      <button className={cn("tool-create", tool === "erase" && "tool-create-active")} onClick={() => onTool(tool === "erase" ? null : "erase")} aria-pressed={tool === "erase"} title="Click a drawing stroke to erase it">
+        <Eraser className="size-4" /><span className="hidden sm:inline">Erase</span>
+      </button>
+      <button className={cn("tool-create", tool === "connector" && "tool-create-active")} onClick={() => onTool(tool === "connector" ? null : "connector")} aria-pressed={tool === "connector"} title="Click two items to connect them with an arrow">
+        <Waypoints className="size-4" /><span className="hidden sm:inline">Connect</span>
       </button>
       <span className="mx-0.5 w-px self-stretch bg-border" />
       {TOOLS.map((t) => (

@@ -1,5 +1,6 @@
 // Core data model. New item kinds (image, event, vision) can be added to ItemType later.
-export type ItemType = "note" | "idea" | "goal" | "checklist" | "calendar" | "text";
+export type ItemType = "note" | "idea" | "goal" | "checklist" | "calendar" | "text" | "drawing" | "connector";
+export interface Point { x: number; y: number; }
 export type NoteColor = "yellow" | "lavender" | "blue" | "mint" | "pink";
 export type NoteFont = "sans" | "hand" | "marker" | "serif";
 
@@ -42,6 +43,13 @@ export interface CanvasItem {
   textBg?: string | undefined;
   /** Fixed width set by resizing; text wraps when set. */
   textWidth?: number | undefined;
+  stroke?: string | undefined;
+  strokeWidth?: number | undefined;
+  /** Drawing stroke data in canvas co-ordinates. */
+  points?: Point[] | undefined;
+  /** Connector endpoints are item ids, so they move with their targets. */
+  fromId?: string | undefined;
+  toId?: string | undefined;
 }
 
 export interface View {
@@ -79,6 +87,8 @@ export const TYPE_DEFAULTS: Record<ItemType, { color: NoteColor; text: string; w
   checklist: { color: "blue", text: "To do", w: 250, h: 240 },
   calendar: { color: "yellow", text: "", w: 300, h: 330 },
   text: { color: "yellow", text: "", w: 40, h: 30 },
+  drawing: { color: "blue", text: "", w: 0, h: 0 },
+  connector: { color: "blue", text: "", w: 0, h: 0 },
 };
 
 export const uid = () => Math.random().toString(36).slice(2, 10);

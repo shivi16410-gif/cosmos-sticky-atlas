@@ -44,7 +44,11 @@ export function useCosmosStore() {
       const raw = localStorage.getItem(KEY);
       if (raw) {
         const p = JSON.parse(raw) as Persisted;
-        setItems(p.items ?? []);
+        // Shapes were removed from COSMOS; discard their legacy records and orphaned connectors.
+        const legacy = (p.items ?? []) as (Omit<CanvasItem, "type"> & { type: string })[];
+        const withoutShapes = legacy.filter((item) => item.type !== "shape") as CanvasItem[];
+        const ids = new Set(withoutShapes.map((item) => item.id));
+        setItems(withoutShapes.filter((item) => item.type !== "connector" || (ids.has(item.fromId ?? "") && ids.has(item.toId ?? ""))));
         if (p.view) setView(p.view);
         if (p.settings) setSettings(p.settings);
       } else setItems(seed());
@@ -105,7 +109,28 @@ export function useCosmosStore() {
     [mutate],
   );
 
-  const remove = useCallback((id: string, record = true) => mutate((prev) => prev.filter((i) => i.id !== id), record), [mutate]);
+  const addDrawing = useCallback((points: CanvasItem["points"], color: string, width: number) => {
+    if (!points || points.length < 2) return;
+    const xs = points.map((p) => p.x), ys = points.map((p) => p.y);
+    const item: CanvasItem = {
+      id: uid(), type: "drawing", x: Math.min(...xs), y: Math.min(...ys),
+      w: Math.max(...xs) - Math.min(...xs), h: Math.max(...ys) - Math.min(...ys),
+      z: Math.max(0, ...itemsRef.current.map((i) => i.z)) + 1, color: "blue", font: "sans", text: "",
+      points, stroke: color, strokeWidth: width,
+    };
+    mutate((prev) => [...prev, item]);
+  }, [mutate]);
+
+  const addConnector = useCallback((fromId: string, toId: string) => {
+    if (fromId === toId) return;
+    const item: CanvasItem = {
+      id: uid(), type: "connector", x: 0, y: 0, w: 0, h: 0,
+      z: -1, color: "blue", font: "sans", text: "", fromId, toId, stroke: "#7c3aed", strokeWidth: 2,
+    };
+    mutate((prev) => [...prev, item]);
+  }, [mutate]);
+
+  const remove = useCallback((id: string, record = true) => mutate((prev) => prev.filter((i) => i.id !== id && i.fromId !== id && i.toId !== id), record), [mutate]);
 
   const duplicate = useCallback(
     (id: string) => {
@@ -145,7 +170,7 @@ export function useCosmosStore() {
 
   return {
     items, view, setView, settings, setSettings, loaded, status,
-    add, update, remove, duplicate, bringToFront, checkpoint, mutate, clear,
+    add, addDrawing, addConnector, update, remove, duplicate, bringToFront, checkpoint, mutate, clear,
     undo, redo, canUndo: past.current.length > 0, canRedo: future.current.length > 0,
   };
 }

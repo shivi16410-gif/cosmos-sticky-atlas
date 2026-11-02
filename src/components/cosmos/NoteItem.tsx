@@ -13,6 +13,8 @@ const TYPE_META = {
   checklist: { icon: ListChecks, label: "Checklist" },
   calendar: { icon: CalendarDays, label: "Calendar" },
   text: { icon: StickyNote, label: "Text" },
+  drawing: { icon: StickyNote, label: "Drawing" },
+  connector: { icon: StickyNote, label: "Connector" },
 } as const;
 
 interface Props {
