@@ -3,7 +3,6 @@ import { Ban, Minus, PaintBucket, Plus, Trash2 } from "lucide-react";
 import type { CanvasItem } from "@/lib/cosmos/types";
 import { FONTS, TEXT_COLORS, TEXT_SIZES } from "@/lib/cosmos/types";
 
-const CHART = ["#1f2937", "#6b7280", "#ffffff", "#ef4444", "#f97316", "#eab308", "#22c55e", "#14b8a6", "#3b82f6", "#6366f1", "#a855f7", "#ec4899"];
 const BG_CHART = ["#fef3c7", "#fde2e4", "#dbeafe", "#dcfce7", "#ede9fe", "#ffedd5", "#e5e7eb", "#1f2937", "#fde047", "#86efac", "#93c5fd", "#f9a8d4"];
 
 function ColorChart({ colors, value, onPick, label, onClose }: { onClose: () => void; colors: string[]; value?: string | undefined; onPick: (c: string) => void; label: string }) {
@@ -43,7 +42,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
   const preset = TEXT_COLORS.find((c) => c.id === (item.textColor ?? "ink"));
   const colorClass = preset?.className ?? "";
   const fontClass = FONTS.find((f) => f.id === item.font)?.className ?? "font-sans";
-  const [pop, setPop] = useState<null | "color" | "bg">(null);
+  const [pop, setPop] = useState<null | "bg">(null);
   useEffect(() => { if (!selected) setPop(null); }, [selected]);
 
   const onResize = (e: React.PointerEvent) => {
@@ -139,7 +138,6 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
               <Ban className="size-4" />
             </button>
           )}
-          {pop === "color" && <ColorChart onClose={() => setPop(null)} label="Text color" colors={CHART} value={item.textColor} onPick={(c) => update(item.id, { textColor: c }, true)} />}
           {pop === "bg" && <ColorChart onClose={() => setPop(null)} label="Background" colors={BG_CHART} value={item.textBg} onPick={(c) => update(item.id, { textBg: c }, true)} />}
           <span className="mx-1 h-5 w-px bg-border" />
           <button aria-label="Delete text" className="tool-btn tool-btn-danger" onClick={() => { store.remove(item.id); onSelect(null); setEditing(null); }}>
