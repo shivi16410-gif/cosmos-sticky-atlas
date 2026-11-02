@@ -150,7 +150,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
           </button>
         </div>
       )}
-      <div className={cn("text-sizer", fontClass, item.textWidth && "text-sizer-wrap")}>
+      <div className={cn("cosmos-sizer", fontClass, item.textWidth && "cosmos-wrap")}>
         <span aria-hidden>{(item.text || "Type…") + " "}</span>
         <textarea
           ref={taRef}
@@ -169,7 +169,7 @@ function TextItemImpl({ item, zoom, selected, editing, onSelect, setEditing, sto
           onChange={(e) => update(item.id, { text: e.target.value })}
         />
       </div>
-      {selected && <div data-nodrag onPointerDown={onResize} className="text-resize" aria-label="Resize text box" title="Drag to resize" />}
+      {selected && <div data-nodrag onPointerDown={onResize} className="cosmos-resize" aria-label="Resize text box" title="Drag to resize" />}
     </div>
   );
 }
