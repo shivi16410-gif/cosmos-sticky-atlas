@@ -6,7 +6,7 @@ import { FONTS, TEXT_COLORS, TEXT_SIZES } from "@/lib/cosmos/types";
 const CHART = ["#1f2937", "#6b7280", "#ffffff", "#ef4444", "#f97316", "#eab308", "#22c55e", "#14b8a6", "#3b82f6", "#6366f1", "#a855f7", "#ec4899"];
 const BG_CHART = ["#fef3c7", "#fde2e4", "#dbeafe", "#dcfce7", "#ede9fe", "#ffedd5", "#e5e7eb", "#1f2937", "#fde047", "#86efac", "#93c5fd", "#f9a8d4"];
 
-function ColorChart({ colors, value, onPick, label }: { colors: string[]; value?: string; onPick: (c: string) => void; label: string }) {
+function ColorChart({ colors, value, onPick, label }: { colors: string[]; value?: string | undefined; onPick: (c: string) => void; label: string }) {
   return (
     <div className="note-toolbar absolute left-0 top-11 grid w-max grid-cols-6 gap-1.5 p-2" aria-label={label}>
       {colors.map((c) => (
